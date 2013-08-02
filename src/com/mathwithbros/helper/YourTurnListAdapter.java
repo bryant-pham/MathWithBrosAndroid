@@ -1,5 +1,8 @@
 package com.mathwithbros.helper;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import com.mathwithbros.R;
 
 import android.app.Activity;
@@ -14,11 +17,11 @@ import com.mathwithbros.model.GameItem;
 
 public class YourTurnListAdapter extends ArrayAdapter<GameItem> {
 
-	GameItem[] listData;
+	List<GameItem> listData;
 	Context context;
 	int textViewResourceId;
 	
-	public YourTurnListAdapter( Context context, int textViewResourceId, GameItem[] listData ) {
+	public YourTurnListAdapter( Context context, int textViewResourceId, List<GameItem> listData ) {
 		super( context, textViewResourceId, listData );
 		this.listData = listData;
 		this.context = context;
@@ -28,19 +31,23 @@ public class YourTurnListAdapter extends ArrayAdapter<GameItem> {
 	@Override
 	public View getView( int position, View convertView, ViewGroup parent ) {
 		View row = convertView;
-		ViewHolder viewHolder;
-		if( row == null ) {
-			LayoutInflater inflater = ( ( Activity ) context ).getLayoutInflater();
-			row = inflater.inflate( textViewResourceId, parent, false );
-			viewHolder = new ViewHolder();
-			viewHolder.playerName = ( TextView ) row.findViewById( R.id.player_name );
-			row.setTag( viewHolder );
+		try {
+			ViewHolder viewHolder;
+			if( row == null ) {
+				LayoutInflater inflater = ( ( Activity ) context ).getLayoutInflater();
+				row                     = inflater.inflate( textViewResourceId, parent, false );
+				viewHolder              = new ViewHolder();
+				viewHolder.playerName   = ( TextView ) row.findViewById( R.id.player_name );
+				row.setTag( viewHolder );
+			}
+			else {
+				viewHolder = ( ViewHolder ) row.getTag();
+			}
+			
+			viewHolder.playerName.setText( "HERP DERP" );
+		} catch ( Exception e ) {
+			e.printStackTrace();
 		}
-		else {
-			viewHolder = ( ViewHolder ) row.getTag();
-		}
-		
-		viewHolder.playerName.setText( "HERP DERP" );
 		
 		return row;
 	}

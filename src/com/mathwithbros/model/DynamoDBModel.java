@@ -2,10 +2,20 @@ package com.mathwithbros.model;
 
 import android.util.Log;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+
 import com.amazonaws.auth.AWSCredentials;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.Condition;
+import com.amazonaws.services.dynamodbv2.model.QueryRequest;
+import com.amazonaws.services.dynamodbv2.model.QueryResult;
 
 import com.mathwithbros.model.DynamoDBClient;
 import com.mathwithbros.model.UserItem;
@@ -69,5 +79,40 @@ public class DynamoDBModel {
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		}
+	}
+	
+	//Fix this method and the Game_Assign table to account for get only incomplete games
+	private List<String> getIncompleteGameIDs( String userName ) {
+		List<String> gameIDs = new ArrayList<String>();
+		try {
+			GameAssignItem gameItem = new GameAssignItem();
+			gameItem.setUserName( userName ); 
+			DynamoDBQueryExpression<GameAssignItem> query = new DynamoDBQueryExpression<GameAssignItem>();
+			query.withHashKeyValues( gameItem );
+			List<GameAssignItem> result = mapper.query( GameAssignItem.class, query );
+			
+			for( GameAssignItem gameAssignItem : result ) {
+				gameIDs.add( gameAssignItem.getGameID() );
+			}
+			
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return gameIDs;
+	}
+	
+	public List<GameItem> getYourTurnListData( String userName ) {
+		List<GameItem> gameItems = new ArrayList<GameItem>();
+		try {
+			List<String> gameIDs = getIncompleteGameIDs( userName );
+			for( String gameID : gameIDs ) {
+				GameItem gameItem = mapper.load( GameItem.class, gameID );
+				gameItems.add( gameItem );
+			}
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return gameItems;
+		
 	}
 }

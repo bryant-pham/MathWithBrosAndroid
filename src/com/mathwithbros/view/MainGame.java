@@ -40,17 +40,17 @@ public class MainGame extends Activity implements OnClickListener {
 		timerBox = (TextView) findViewById( R.id.timer_box );
 		scoreBox = (TextView) findViewById( R.id.score_box );
 		
-		Button button0 = (Button) findViewById( R.id.button0 );
-		Button button1 = (Button) findViewById( R.id.button1 );
-		Button button2 = (Button) findViewById( R.id.button2 );
-		Button button3 = (Button) findViewById( R.id.button3 );
-		Button button4 = (Button) findViewById( R.id.button4 );
-		Button button5 = (Button) findViewById( R.id.button5 );
-		Button button6 = (Button) findViewById( R.id.button6 );
-		Button button7 = (Button) findViewById( R.id.button7 );
-		Button button8 = (Button) findViewById( R.id.button8 );
-		Button button9 = (Button) findViewById( R.id.button9 );
-		Button clear = (Button) findViewById( R.id.clear );
+		Button button0  = (Button) findViewById( R.id.button0 );
+		Button button1  = (Button) findViewById( R.id.button1 );
+		Button button2  = (Button) findViewById( R.id.button2 );
+		Button button3  = (Button) findViewById( R.id.button3 );
+		Button button4  = (Button) findViewById( R.id.button4 );
+		Button button5  = (Button) findViewById( R.id.button5 );
+		Button button6  = (Button) findViewById( R.id.button6 );
+		Button button7  = (Button) findViewById( R.id.button7 );
+		Button button8  = (Button) findViewById( R.id.button8 );
+		Button button9  = (Button) findViewById( R.id.button9 );
+		Button clear    = (Button) findViewById( R.id.clear );
 		Button negative = (Button) findViewById( R.id.negative );
 		
 		button0.setOnClickListener( this );
@@ -91,7 +91,6 @@ public class MainGame extends Activity implements OnClickListener {
 			case R.id.button2:
 				answerBox.append("2");
 				check();
-				new RecordScore().execute( "herp", "derp", 9, 5 );
 				break;
 			case R.id.button3:
 				answerBox.append("3");
@@ -132,12 +131,12 @@ public class MainGame extends Activity implements OnClickListener {
 	
 	public void check() {
 		try {
-			if(mathLibrary.checkAnswer(answerBox.getText().toString())) {
+			if( mathLibrary.checkAnswer( answerBox.getText().toString() ) ) {
 				game.incrementScore();
 				updateScoreDisplay();
 				
-				Log.i("Correct answer", "Correct answer input - score incremented");
-				Log.i("Score", "Score: " + Integer.toString(game.getScore()));
+				Log.i( "Correct answer", "Correct answer input - score incremented" );
+				Log.i( "Score", "Score: " + Integer.toString( game.getScore() ) );
 				
 				setNewEquation();
 			}
@@ -172,7 +171,13 @@ public class MainGame extends Activity implements OnClickListener {
 				}
 				else {
 					handler.removeCallbacks(this);
-					//new RecordScore().execute( "herp", "lolol", game.getScore(), 0 ); //TODO: DA HARDCODED VALUES  
+					
+					/**
+					 *  TODO: DA HARDCODED USERNAME REPLACE THIS LATER
+					 *  Currently commented out so new games aren't being inserted every time I test
+					 */
+					//new RecordScore().execute( "herp", "lolol", game.getScore(), 0 );
+					
 					Intent intent = new Intent( MainGame.this, ScoreScreen.class );
 					intent.putExtra( "p1UserName", "herp" );
 					intent.putExtra( "p2UserName", "lolol" );
@@ -198,8 +203,8 @@ public class MainGame extends Activity implements OnClickListener {
 		protected Void doInBackground( Object... userInfo ) {
 			String p1UserName = ( String ) userInfo[ 0 ];
 			String p2UserName = ( String ) userInfo[ 1 ];
-			int p1Score = ( Integer ) userInfo[ 2 ];
-			int p2Score = ( Integer ) userInfo[ 3 ];
+			int p1Score       = ( Integer ) userInfo[ 2 ];
+			int p2Score       = ( Integer ) userInfo[ 3 ];
 			derp.recordScore( p1UserName, p2UserName, p1Score, p2Score );
 			return null;
 		}
