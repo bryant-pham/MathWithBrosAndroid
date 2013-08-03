@@ -28,7 +28,6 @@ public class MainGame extends Activity implements OnClickListener {
 	Game game;
 	MathLibrary mathLibrary;
 	short timerCount;
-	DynamoDBModel derp;
 	
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
@@ -66,7 +65,6 @@ public class MainGame extends Activity implements OnClickListener {
 		clear.setOnClickListener( this );
 		negative.setOnClickListener( this );
 		
-		derp = new DynamoDBModel();
 		game = new Game();
 		mathLibrary = new MathLibrary();
 		questionBox.setText( mathLibrary.getEquation() );
@@ -173,17 +171,18 @@ public class MainGame extends Activity implements OnClickListener {
 					handler.removeCallbacks(this);
 					
 					/**
-					 *  TODO: DA HARDCODED USERNAME REPLACE THIS LATER
+					 *  TODO: HARDCODED USERNAME REPLACE THIS LATER
 					 *  Currently commented out so new games aren't being inserted every time I test
 					 */
 					//new RecordScore().execute( "herp", "lolol", game.getScore(), 0 );
 					
-					Intent intent = new Intent( MainGame.this, ScoreScreen.class );
+					//Passing hardcoded intents for testing
+					/*Intent intent = new Intent( MainGame.this, ScoreScreen.class );
 					intent.putExtra( "p1UserName", "herp" );
 					intent.putExtra( "p2UserName", "lolol" );
 					intent.putExtra( "p1Score", game.getScore() );
 					intent.putExtra( "p2Score", 0 );
-					startActivity( intent );
+					startActivity( intent );*/
 				}
 			}
 		};
@@ -201,11 +200,12 @@ public class MainGame extends Activity implements OnClickListener {
 	private class RecordScore extends AsyncTask< Object, Void, Void > {
 		
 		protected Void doInBackground( Object... userInfo ) {
+			DynamoDBModel ddb = new DynamoDBModel();
 			String p1UserName = ( String ) userInfo[ 0 ];
 			String p2UserName = ( String ) userInfo[ 1 ];
 			int p1Score       = ( Integer ) userInfo[ 2 ];
 			int p2Score       = ( Integer ) userInfo[ 3 ];
-			derp.recordScore( p1UserName, p2UserName, p1Score, p2Score );
+			ddb.recordScore( p1UserName, p2UserName, p1Score, p2Score );
 			return null;
 		}
 	}

@@ -1,7 +1,6 @@
 package com.mathwithbros.helper;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import com.mathwithbros.R;
 
@@ -44,7 +43,8 @@ public class YourTurnListAdapter extends ArrayAdapter<GameItem> {
 				viewHolder = ( ViewHolder ) row.getTag();
 			}
 			
-			viewHolder.playerName.setText( "HERP DERP" );
+			GameItem gameItem = listData.get( position );
+			viewHolder.playerName.setText( gameItem.getP1UserName() );
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		}

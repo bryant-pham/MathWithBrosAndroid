@@ -81,14 +81,15 @@ public class DynamoDBModel {
 		}
 	}
 	
-	//Fix this method and the Game_Assign table to account for get only incomplete games
 	private List<String> getIncompleteGameIDs( String userName ) {
 		List<String> gameIDs = new ArrayList<String>();
 		try {
 			GameAssignItem gameItem = new GameAssignItem();
-			gameItem.setUserName( userName ); 
+			gameItem.setUserName( userName );
+			gameItem.setCompletedGameFlag( (short) 0 );
 			DynamoDBQueryExpression<GameAssignItem> query = new DynamoDBQueryExpression<GameAssignItem>();
 			query.withHashKeyValues( gameItem );
+			query.withIndexName( "completedGame" );
 			List<GameAssignItem> result = mapper.query( GameAssignItem.class, query );
 			
 			for( GameAssignItem gameAssignItem : result ) {
