@@ -15,7 +15,7 @@ public class GameItem implements Parcelable {
 	private String p1_userName;
 	private String p2_userName;
 	private int p1_score;
-	private int p2_score;
+	private int p2_score = 0;
 	
 	public GameItem() {}
 	

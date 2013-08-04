@@ -29,15 +29,17 @@ public class MainGame extends Activity implements OnClickListener {
 	Game game;
 	MathLibrary mathLibrary;
 	int timerCount;
-	GameItem gameItem;
+	GameItem receivedGameItem;
+	boolean newGame;
 	
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_main_game );
 		
-		Bundle data = getIntent().getExtras();
-		gameItem    = ( GameItem ) data.getParcelable( "gameItem" );
+		Bundle data      = getIntent().getExtras();
+		receivedGameItem = ( GameItem ) data.getParcelable( "gameItem" );
+		newGame          = data.getBoolean( "newGame" );
 		
 		questionBox = (TextView) findViewById( R.id.question_box );
 		answerBox   = (TextView) findViewById( R.id.answer_box );
@@ -130,38 +132,33 @@ public class MainGame extends Activity implements OnClickListener {
 		}
 	}
 	
-	public void check() {
-		try {
-			if( mathLibrary.checkAnswer( answerBox.getText().toString() ) ) {
-				game.incrementScore();
-				updateScoreDisplay();
-				
-				Log.i( "Correct answer", "Correct answer input - score incremented" );
-				Log.i( "Score", "Score: " + Integer.toString( game.getScore() ) );
-				
-				setNewEquation();
-			}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
+	private void check() {
+		if( mathLibrary.checkAnswer( answerBox.getText().toString() ) ) {
+			game.incrementScore();
+			updateScoreDisplay();
+			
+			Log.i( "Correct answer", "Correct answer input - score incremented" );
+			Log.i( "Score", "Score: " + Integer.toString( game.getScore() ) );
+			
+			setNewEquation();
 		}
 	}
 	
-	public void setNewEquation() {
+	private void setNewEquation() {
 		questionBox.setText(mathLibrary.getEquation());
 		answerBox.setText("");
 	}
 	
-	public void updateScoreDisplay() {
+	private void updateScoreDisplay() {
 		scoreBox.setText(Integer.toString(game.getScore())); //TODO: possibly change the return type of getScore()
 	}
 	
-	public void updateTimerDisplay() {
+	private void updateTimerDisplay() {
 		timerCount--;
 		timerBox.setText(Integer.toString(timerCount));
 	}
 	
-	public void startTimer() {
+	private void startTimer() {
 		final Handler handler = new Handler();
 		Runnable runnable = new Runnable() {
 			@Override
@@ -173,19 +170,11 @@ public class MainGame extends Activity implements OnClickListener {
 				else {
 					handler.removeCallbacks(this);
 					
-					/**
-					 *  TODO: HARDCODED USERNAME REPLACE THIS LATER
-					 *  Currently commented out so new games aren't being inserted every time I test
-					 */
-					//new RecordScore().execute( "herp", "lolol", game.getScore(), 0 );
+					//Record game into database
+					recordGame();
 					
-					//Passing hardcoded intents for testing
-					/*Intent intent = new Intent( MainGame.this, ScoreScreen.class );
-					intent.putExtra( "p1UserName", "herp" );
-					intent.putExtra( "p2UserName", "lolol" );
-					intent.putExtra( "p1Score", game.getScore() );
-					intent.putExtra( "p2Score", 0 );
-					startActivity( intent );*/
+					//Start ScoreScreen activity
+					showScoreScreen();
 				}
 			}
 		};
@@ -196,19 +185,40 @@ public class MainGame extends Activity implements OnClickListener {
 	 * 
 	 * @param timerCount - Amount of time in seconds
 	 */
-	public void setTimer( int timerCount ) {
+	private void setTimer( int timerCount ) {
 		this.timerCount = timerCount;
 	}
 	
-	private class RecordScore extends AsyncTask< Object, Void, Void > {
+	private void recordGame() {
+		if( newGame ) {
+			new RecordNewGame().execute( receivedGameItem );
+		}
+		else {
+			new RecordFinishedGame().execute( receivedGameItem );
+		}
+	}
+	
+	private void showScoreScreen() {
+		//Build intent and start activity here
+	}
+	
+	private class RecordNewGame extends AsyncTask< GameItem, Void, Void > {
 		
-		protected Void doInBackground( Object... userInfo ) {
+		protected Void doInBackground( GameItem... gameItemList ) {
 			DynamoDBModel ddb = new DynamoDBModel();
-			String p1UserName = ( String ) userInfo[ 0 ];
-			String p2UserName = ( String ) userInfo[ 1 ];
-			int p1Score       = ( Integer ) userInfo[ 2 ];
-			int p2Score       = ( Integer ) userInfo[ 3 ];
-			ddb.recordScore( p1UserName, p2UserName, p1Score, p2Score );
+			GameItem gameItem = gameItemList[ 0 ];
+			gameItem.setP1Score( game.getScore() );
+			ddb.recordNewGame( gameItem );
+			return null;
+		}
+	}
+	
+	private class RecordFinishedGame extends AsyncTask< GameItem, Void, Void > {
+		protected Void doInBackground( GameItem... gameItemList ) {
+			DynamoDBModel ddb = new DynamoDBModel();
+			GameItem gameItem = gameItemList[ 0 ];
+			gameItem.setP2Score( game.getScore() );
+			ddb.recordFinishedGame( gameItem );
 			return null;
 		}
 	}

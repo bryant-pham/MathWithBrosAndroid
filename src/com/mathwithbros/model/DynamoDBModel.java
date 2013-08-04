@@ -53,28 +53,42 @@ public class DynamoDBModel {
 		}
 	}
 	
-	public void recordScore( String p1UserName, String p2UserName, int p1Score, int p2Score ) {
+	//TODO: Consider refactoring this method
+	public void recordNewGame( GameItem gameItem ) {
 		try { 
-			GameItem gameItem = new GameItem();
-			gameItem.setP1UserName( p1UserName );
-			gameItem.setP1Score( p1Score );
-			gameItem.setP2UserName( p2UserName );
-			gameItem.setP2Score( p2Score );
 			mapper.save( gameItem );
-			assignGame( gameItem.getGameID(), p1UserName );
-			assignGame( gameItem.getGameID(), p2UserName );
+			assignGame( gameItem.getGameID(), gameItem.getP1UserName(), true );
+			assignGame( gameItem.getGameID(), gameItem.getP2UserName(), true );
 			Log.i( "Success", "Successfully inserted game score" );
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void assignGame( String gameID, String userName ) {
+	//TODO: Consider refactoring this method
+	public void recordFinishedGame( GameItem gameItem ) {
+		try { 
+			mapper.save( gameItem );
+			assignGame( gameItem.getGameID(), gameItem.getP1UserName(), false );
+			assignGame( gameItem.getGameID(), gameItem.getP2UserName(), false );
+			Log.i( "Success", "Successfully inserted game score" );
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void assignGame( String gameID, String userName, boolean newGame ) {
 		try {
 			GameAssignItem gameAssignItem = new GameAssignItem();
 			gameAssignItem.setUserName( userName );
 			gameAssignItem.setGameID( gameID );
-			gameAssignItem.setCompletedGameFlag( 0 );
+			
+			// If it is a newly started game, set completedGameFlag = 0 to signify game is not completed
+			if( newGame )
+				gameAssignItem.setCompletedGameFlag( 0 );
+			else
+				gameAssignItem.setCompletedGameFlag( 1 );
+			
 			mapper.save( gameAssignItem );
 			Log.i( "Success", "Successfully assigned game to player: " + userName );
 		} catch ( Exception e ) {
@@ -90,7 +104,7 @@ public class DynamoDBModel {
 			gameItem.setCompletedGameFlag( 0 );
 			DynamoDBQueryExpression<GameAssignItem> query = new DynamoDBQueryExpression<GameAssignItem>();
 			query.withHashKeyValues( gameItem );
-			query.withIndexName( "completedGame" );
+			query.withIndexName( "completedGameFlag" );
 			List<GameAssignItem> result = mapper.query( GameAssignItem.class, query );
 			
 			for( GameAssignItem gameAssignItem : result ) {

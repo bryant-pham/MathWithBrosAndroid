@@ -42,14 +42,20 @@ public class HomeScreen extends Activity {
 			//Grab GameItem object from the list item clicked
 			GameItem gameItem = yourTurnAdapter.getItem( position );
 			
-			//Attach GameItem object to bundle/intent and start activity
-			Intent intent = new Intent( HomeScreen.this, MainGame.class );
-			Bundle bundle = new Bundle();
-			bundle.putParcelable( "gameItem", gameItem );
-			intent.putExtras( bundle );
-			startActivity( intent );
+			startGame( gameItem );
 		}
 	};
+	
+	private void startGame( GameItem gameItem ) {
+		
+		//Attach GameItem object to bundle/intent and start activity
+		Intent intent = new Intent( HomeScreen.this, MainGame.class );
+		Bundle bundle = new Bundle();
+		bundle.putParcelable( "gameItem", gameItem );
+		intent.putExtras( bundle );
+		intent.putExtra( "newGame" , false );
+		startActivity( intent );
+	}
 	
 	//AsyncTask to retrieve GameItem objects from DB and populate list
 	private class loadYourTurnList extends AsyncTask<String, Void, Void> {

@@ -5,12 +5,15 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
-@SuppressWarnings("serial")
 @DynamoDBTable( tableName = "Game_Assign" )
 public class GameAssignItem {
 
 	private String gameID;
 	private String userName;
+	
+	/**
+	 * DynamoDB doesn't support boolean values so we'll set completedGameFlag 0 = FALSE and 1 = TRUE
+	 */
 	private int completedGameFlag;
 	
 	@DynamoDBHashKey( attributeName = "userName" )
