@@ -74,6 +74,7 @@ public class DynamoDBModel {
 			GameAssignItem gameAssignItem = new GameAssignItem();
 			gameAssignItem.setUserName( userName );
 			gameAssignItem.setGameID( gameID );
+			gameAssignItem.setCompletedGameFlag( 0 );
 			mapper.save( gameAssignItem );
 			Log.i( "Success", "Successfully assigned game to player: " + userName );
 		} catch ( Exception e ) {
@@ -86,7 +87,7 @@ public class DynamoDBModel {
 		try {
 			GameAssignItem gameItem = new GameAssignItem();
 			gameItem.setUserName( userName );
-			gameItem.setCompletedGameFlag( (short) 0 );
+			gameItem.setCompletedGameFlag( 0 );
 			DynamoDBQueryExpression<GameAssignItem> query = new DynamoDBQueryExpression<GameAssignItem>();
 			query.withHashKeyValues( gameItem );
 			query.withIndexName( "completedGame" );

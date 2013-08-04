@@ -9,6 +9,7 @@ import com.mathwithbros.model.GameItem;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -20,6 +21,7 @@ public class HomeScreen extends Activity {
 
 	ListView yourTurnListview;
 	List<GameItem> gameItem;
+	YourTurnListAdapter yourTurnAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,19 @@ public class HomeScreen extends Activity {
 	private OnItemClickListener selectGame = new OnItemClickListener() {
 		@Override
 		public void onItemClick( AdapterView<?> parent, View view, int position, long id ) {
-			Log.i( "test", gameItem.get( position ).getP2UserName() );
-			Log.i( "test", "onItemClick FIRED" );
+			//Grab GameItem object from the list item clicked
+			GameItem gameItem = yourTurnAdapter.getItem( position );
+			
+			//Attach GameItem object to bundle/intent and start activity
+			Intent intent = new Intent( HomeScreen.this, MainGame.class );
+			Bundle bundle = new Bundle();
+			bundle.putParcelable( "gameItem", gameItem );
+			intent.putExtras( bundle );
+			startActivity( intent );
 		}
 	};
 	
+	//AsyncTask to retrieve GameItem objects from DB and populate list
 	private class loadYourTurnList extends AsyncTask<String, Void, Void> {
 		
 		protected Void doInBackground( String... playerName ) {
@@ -61,7 +71,7 @@ public class HomeScreen extends Activity {
 		public void onPostExecute( Void x ) {
 			try{
 				//Populate list with data
-				YourTurnListAdapter yourTurnAdapter = new YourTurnListAdapter( HomeScreen.this, R.layout.activity_your_turn_list_fragment, gameItem );		
+				yourTurnAdapter = new YourTurnListAdapter( HomeScreen.this, R.layout.activity_your_turn_list_fragment, gameItem );		
 				yourTurnListview.setAdapter( yourTurnAdapter );
 			} catch ( Exception e ) {
 				e.printStackTrace();

@@ -18,6 +18,7 @@ import com.mathwithbros.mathlibrary.MathLibrary;
 import com.mathwithbros.mathlibrary.Game;
 
 import com.mathwithbros.model.DynamoDBModel;
+import com.mathwithbros.model.GameItem;
 
 public class MainGame extends Activity implements OnClickListener {
 
@@ -27,17 +28,21 @@ public class MainGame extends Activity implements OnClickListener {
 	TextView scoreBox;
 	Game game;
 	MathLibrary mathLibrary;
-	short timerCount;
+	int timerCount;
+	GameItem gameItem;
 	
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_main_game );
 		
+		Bundle data = getIntent().getExtras();
+		gameItem    = ( GameItem ) data.getParcelable( "gameItem" );
+		
 		questionBox = (TextView) findViewById( R.id.question_box );
-		answerBox = (TextView) findViewById( R.id.answer_box );
-		timerBox = (TextView) findViewById( R.id.timer_box );
-		scoreBox = (TextView) findViewById( R.id.score_box );
+		answerBox   = (TextView) findViewById( R.id.answer_box );
+		timerBox    = (TextView) findViewById( R.id.timer_box );
+		scoreBox    = (TextView) findViewById( R.id.score_box );
 		
 		Button button0  = (Button) findViewById( R.id.button0 );
 		Button button1  = (Button) findViewById( R.id.button1 );
@@ -70,10 +75,8 @@ public class MainGame extends Activity implements OnClickListener {
 		questionBox.setText( mathLibrary.getEquation() );
 		timerBox.setText( Integer.toString( timerCount ) );
 		
-		setTimer( ( short ) 5 ); //TODO: CHANGE THIS NUMBER TO CHANGE TIMER
+		setTimer( 5 ); //TODO: CHANGE THIS NUMBER TO CHANGE TIMER
 		startTimer();
-		
-		Log.i( "onCreate", "onCreate() Successful" );
 	}
 
 	public void onClick( View v ) {
@@ -193,7 +196,7 @@ public class MainGame extends Activity implements OnClickListener {
 	 * 
 	 * @param timerCount - Amount of time in seconds
 	 */
-	public void setTimer( short timerCount ) {
+	public void setTimer( int timerCount ) {
 		this.timerCount = timerCount;
 	}
 	
