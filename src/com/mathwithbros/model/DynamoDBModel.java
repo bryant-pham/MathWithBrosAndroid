@@ -13,10 +13,10 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
 
+import com.mathwithbros.databasetable.GameAssignItem;
+import com.mathwithbros.databasetable.GameItem;
+import com.mathwithbros.databasetable.UserItem;
 import com.mathwithbros.model.DynamoDBClient;
-import com.mathwithbros.model.UserItem;
-import com.mathwithbros.model.GameItem;
-import com.mathwithbros.model.GameAssignItem;
 
 public class DynamoDBModel {
 	

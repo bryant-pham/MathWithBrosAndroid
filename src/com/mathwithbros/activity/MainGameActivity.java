@@ -1,4 +1,4 @@
-package com.mathwithbros.view;
+package com.mathwithbros.activity;
 
 import com.mathwithbros.R;
 
@@ -14,13 +14,13 @@ import java.lang.Runnable;
 import android.os.AsyncTask;
 import android.content.Intent;
 
+import com.mathwithbros.databasetable.GameItem;
 import com.mathwithbros.mathlibrary.MathLibrary;
 import com.mathwithbros.mathlibrary.Game;
 
 import com.mathwithbros.model.DynamoDBModel;
-import com.mathwithbros.model.GameItem;
 
-public class MainGame extends Activity implements OnClickListener {
+public class MainGameActivity extends Activity implements OnClickListener {
 
 	TextView answerBox;
 	TextView questionBox;
@@ -201,7 +201,7 @@ public class MainGame extends Activity implements OnClickListener {
 	}
 	
 	private void showScoreScreen() {
-		Intent intent = new Intent( MainGame.this, ScoreScreen.class );
+		Intent intent = new Intent( MainGameActivity.this, ScoreScreenActivity.class );
 		Bundle bundle = new Bundle();
 		bundle.putParcelable( "gameItem" , receivedGameItem );
 		intent.putExtras( bundle );

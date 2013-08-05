@@ -1,11 +1,11 @@
-package com.mathwithbros.view;
+package com.mathwithbros.activity;
 
 import java.util.List;
 
 import com.mathwithbros.R;
-import com.mathwithbros.helper.YourTurnListAdapter;
+import com.mathwithbros.databasetable.GameItem;
+import com.mathwithbros.listadapter.YourTurnListAdapter;
 import com.mathwithbros.model.DynamoDBModel;
-import com.mathwithbros.model.GameItem;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -17,7 +17,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
-public class HomeScreen extends Activity {
+public class HomeScreenActivity extends Activity {
 
 	ListView yourTurnListview;
 	List<GameItem> gameItemList;
@@ -49,7 +49,7 @@ public class HomeScreen extends Activity {
 	private void startGame( GameItem gameItem ) {
 		
 		//Attach GameItem object to bundle/intent and start activity
-		Intent intent = new Intent( HomeScreen.this, MainGame.class );
+		Intent intent = new Intent( HomeScreenActivity.this, MainGameActivity.class );
 		Bundle bundle = new Bundle();
 		bundle.putParcelable( "gameItem", gameItem );
 		intent.putExtras( bundle );
@@ -77,7 +77,7 @@ public class HomeScreen extends Activity {
 		public void onPostExecute( Void x ) {
 			try{
 				//Populate list with data
-				yourTurnAdapter = new YourTurnListAdapter( HomeScreen.this, R.layout.activity_your_turn_list_fragment, gameItemList );		
+				yourTurnAdapter = new YourTurnListAdapter( HomeScreenActivity.this, R.layout.activity_your_turn_list_fragment, gameItemList );		
 				yourTurnListview.setAdapter( yourTurnAdapter );
 			} catch ( Exception e ) {
 				e.printStackTrace();

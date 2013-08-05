@@ -16,16 +16,16 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Light.NoTitleBar" >
         <activity
-            android:name="com.mathwithbros.view.MainGame"
+            android:name="com.mathwithbros.activity.MainGameActivity"
             android:label="@string/title_activity_main_game" >
             
         </activity>
         <activity
-            android:name="com.mathwithbros.view.ScoreScreen"
+            android:name="com.mathwithbros.activity.ScoreScreenActivity"
             android:label="@string/title_activity_score_screen" >
         </activity>
         <activity
-            android:name="com.mathwithbros.view.HomeScreen"
+            android:name="com.mathwithbros.activity.HomeScreenActivity"
             android:label="@string/title_activity_home_screen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.mathwithbros.helper;
+package com.mathwithbros.listadapter;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.mathwithbros.model.GameItem;
+import com.mathwithbros.databasetable.GameItem;
 
 public class YourTurnListAdapter extends ArrayAdapter<GameItem> {
 

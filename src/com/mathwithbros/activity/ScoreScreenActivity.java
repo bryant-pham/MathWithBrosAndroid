@@ -1,14 +1,14 @@
-package com.mathwithbros.view;
+package com.mathwithbros.activity;
 
 import com.mathwithbros.R;
 
-import com.mathwithbros.model.GameItem;
+import com.mathwithbros.databasetable.GameItem;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.widget.TextView;
 
-public class ScoreScreen extends Activity {
+public class ScoreScreenActivity extends Activity {
 	
 	TextView p1UserName;
 	TextView p2UserName;

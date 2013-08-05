@@ -1,4 +1,4 @@
-package com.mathwithbros.model;
+package com.mathwithbros.databasetable;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;

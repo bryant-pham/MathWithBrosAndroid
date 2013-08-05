@@ -1,4 +1,4 @@
-package com.mathwithbros.model;
+package com.mathwithbros.databasetable;
 
 import android.os.Parcel;
 import android.os.Parcelable;
