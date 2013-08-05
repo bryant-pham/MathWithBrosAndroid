@@ -24,7 +24,7 @@ public class GameAssignItem {
 	public String getGameID() { return gameID; }
 	public void setGameID( String gameID ) { this.gameID = gameID; }
 	
-	@DynamoDBIndexRangeKey
+	@DynamoDBIndexRangeKey( attributeName = "completedGameFlag", localSecondaryIndexName="completedGameFlag" )
 	public int getCompletedGameFlag() { return completedGameFlag; }
 	public void setCompletedGameFlag( int completedGameFlag ) { this.completedGameFlag = completedGameFlag; }
 }

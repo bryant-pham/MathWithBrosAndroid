@@ -1,11 +1,8 @@
 package com.mathwithbros.model;
 
 import android.util.Log;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
 
 import com.amazonaws.auth.AWSCredentials;
 
@@ -13,9 +10,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
-import com.amazonaws.services.dynamodbv2.model.QueryRequest;
-import com.amazonaws.services.dynamodbv2.model.QueryResult;
 
 import com.mathwithbros.model.DynamoDBClient;
 import com.mathwithbros.model.UserItem;
@@ -101,10 +97,14 @@ public class DynamoDBModel {
 		try {
 			GameAssignItem gameItem = new GameAssignItem();
 			gameItem.setUserName( userName );
-			gameItem.setCompletedGameFlag( 0 );
+			
+			Condition indexKeyCondition = new Condition();
+			indexKeyCondition.withComparisonOperator( ComparisonOperator.EQ )
+				.withAttributeValueList( new AttributeValue().withN( "0" ) );
+			
 			DynamoDBQueryExpression<GameAssignItem> query = new DynamoDBQueryExpression<GameAssignItem>();
 			query.withHashKeyValues( gameItem );
-			query.withIndexName( "completedGameFlag" );
+			query.withRangeKeyCondition( "completedGameFlag", indexKeyCondition );
 			List<GameAssignItem> result = mapper.query( GameAssignItem.class, query );
 			
 			for( GameAssignItem gameAssignItem : result ) {

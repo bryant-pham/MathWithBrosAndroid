@@ -2,6 +2,8 @@ package com.mathwithbros.view;
 
 import com.mathwithbros.R;
 
+import com.mathwithbros.model.GameItem;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.widget.TextView;
@@ -24,15 +26,12 @@ public class ScoreScreen extends Activity {
 		TextView p2Score    = ( TextView ) findViewById( R.id.p2Score );
 		
 		Bundle gameInfo = getIntent().getExtras();
-		String p1_UserName = gameInfo.getString( "p1UserName" );
-		String p2_UserName = gameInfo.getString( "p2UserName" );
-		String p1_score    = Integer.toString( gameInfo.getInt( "p1Score" ) );
-		String p2_score    = Integer.toString( gameInfo.getInt( "p2Score" ) );
+		GameItem receivedGameItem = gameInfo.getParcelable( "gameItem" );
 		
-		p1UserName.setText( p1_UserName );
-		p2UserName.setText( p2_UserName );
-		p1Score.setText( p1_score );
-		p2Score.setText( p2_score );
+		p1UserName.setText( receivedGameItem.getP1UserName() );
+		p2UserName.setText( receivedGameItem.getP2UserName() );
+		p1Score.setText( Integer.toString( receivedGameItem.getP1Score() ) );
+		p2Score.setText( Integer.toString( receivedGameItem.getP2Score() ) );
 	}
 
 }

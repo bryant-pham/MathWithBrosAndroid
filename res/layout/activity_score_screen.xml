@@ -40,11 +40,11 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/p2UserName" />
 
-       <Button
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_alignParentBottom="true"
-           android:text="@string/back_to_main"
-           android:onClick="backToMain" />
+      <Button
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:text="@string/back_to_main"
+          android:onClick="backToMain" />
 
 </RelativeLayout>

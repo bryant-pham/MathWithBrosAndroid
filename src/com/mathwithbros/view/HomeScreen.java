@@ -20,7 +20,7 @@ import android.view.View;
 public class HomeScreen extends Activity {
 
 	ListView yourTurnListview;
-	List<GameItem> gameItem;
+	List<GameItem> gameItemList;
 	YourTurnListAdapter yourTurnAdapter;
 	
 	@Override
@@ -66,18 +66,18 @@ public class HomeScreen extends Activity {
 			/**
 			 *  TODO: DA HARDCODED USERNAME REPLACE THIS LATER
 			 */
-			String userName = "herp";
+			String userName = "Bryant";
 			
 			//Grab list data
 			DynamoDBModel derp = new DynamoDBModel();
-			gameItem = derp.getYourTurnListData( userName );
+			gameItemList = derp.getYourTurnListData( userName );
 			return null;
 		}
 		
 		public void onPostExecute( Void x ) {
 			try{
 				//Populate list with data
-				yourTurnAdapter = new YourTurnListAdapter( HomeScreen.this, R.layout.activity_your_turn_list_fragment, gameItem );		
+				yourTurnAdapter = new YourTurnListAdapter( HomeScreen.this, R.layout.activity_your_turn_list_fragment, gameItemList );		
 				yourTurnListview.setAdapter( yourTurnAdapter );
 			} catch ( Exception e ) {
 				e.printStackTrace();

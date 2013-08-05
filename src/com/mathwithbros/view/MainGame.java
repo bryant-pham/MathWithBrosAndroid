@@ -171,7 +171,7 @@ public class MainGame extends Activity implements OnClickListener {
 					handler.removeCallbacks(this);
 					
 					//Record game into database
-					recordGame();
+					recordGameScore();
 					
 					//Start ScoreScreen activity
 					showScoreScreen();
@@ -189,17 +189,23 @@ public class MainGame extends Activity implements OnClickListener {
 		this.timerCount = timerCount;
 	}
 	
-	private void recordGame() {
+	private void recordGameScore() {
 		if( newGame ) {
+			receivedGameItem.setP1Score( game.getScore() );
 			new RecordNewGame().execute( receivedGameItem );
 		}
-		else {
+		else { 
+			receivedGameItem.setP2Score( game.getScore() );
 			new RecordFinishedGame().execute( receivedGameItem );
 		}
 	}
 	
 	private void showScoreScreen() {
-		//Build intent and start activity here
+		Intent intent = new Intent( MainGame.this, ScoreScreen.class );
+		Bundle bundle = new Bundle();
+		bundle.putParcelable( "gameItem" , receivedGameItem );
+		intent.putExtras( bundle );
+		startActivity( intent );
 	}
 	
 	private class RecordNewGame extends AsyncTask< GameItem, Void, Void > {
@@ -207,7 +213,6 @@ public class MainGame extends Activity implements OnClickListener {
 		protected Void doInBackground( GameItem... gameItemList ) {
 			DynamoDBModel ddb = new DynamoDBModel();
 			GameItem gameItem = gameItemList[ 0 ];
-			gameItem.setP1Score( game.getScore() );
 			ddb.recordNewGame( gameItem );
 			return null;
 		}
@@ -217,7 +222,6 @@ public class MainGame extends Activity implements OnClickListener {
 		protected Void doInBackground( GameItem... gameItemList ) {
 			DynamoDBModel ddb = new DynamoDBModel();
 			GameItem gameItem = gameItemList[ 0 ];
-			gameItem.setP2Score( game.getScore() );
 			ddb.recordFinishedGame( gameItem );
 			return null;
 		}
