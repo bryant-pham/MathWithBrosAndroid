@@ -22,5 +22,5 @@
     <string name="title_activity_home_screen">HomeScreen</string>
     <string name="start_game">Start a New Game</string>
     <string name="title_activity_your_turn_list_fragment">YourTurnListFragment</string>
-
+	<string name="awaiting_challengers">AWAITING CHALLENGERS</string>
 </resources>

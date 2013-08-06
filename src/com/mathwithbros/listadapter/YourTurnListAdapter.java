@@ -16,9 +16,9 @@ import com.mathwithbros.databasetable.GameItem;
 
 public class YourTurnListAdapter extends ArrayAdapter<GameItem> {
 
-	List<GameItem> listData;
-	Context context;
-	int textViewResourceId;
+	private List<GameItem> listData;
+	private Context context;
+	private int textViewResourceId;
 	
 	public YourTurnListAdapter( Context context, int textViewResourceId, List<GameItem> listData ) {
 		super( context, textViewResourceId, listData );

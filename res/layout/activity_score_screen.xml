@@ -13,14 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:paddingBottom="50dp"
-        android:text="@string/hello_world" />
+        android:paddingBottom="50dp" />
     
     <TextView
         android:id="@+id/p1Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/p1UserName" />
     
@@ -29,14 +27,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:paddingBottom="50dp"
-        android:text="@string/hello_world" />
+        android:paddingBottom="50dp" />
     
     <TextView
         android:id="@+id/p2Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world"
         android:layout_alignParentRight="true"
         android:layout_below="@id/p2UserName" />
 
@@ -45,6 +41,6 @@
           android:layout_height="wrap_content"
           android:layout_alignParentBottom="true"
           android:text="@string/back_to_main"
-          android:onClick="backToMain" />
+          android:onClick="backToHome" />
 
 </RelativeLayout>

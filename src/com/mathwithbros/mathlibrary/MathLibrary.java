@@ -4,11 +4,11 @@ import java.util.Random;
 
 public class MathLibrary {
 
-	Random rand;
-	int max; 
-	int min;
-	int answer;
-	char[] mathOperatorArray = {'+', '-', '*'};
+	private Random rand;
+	private int max; 
+	private int min;
+	private int answer;
+	private char[] mathOperatorArray = {'+', '-', '*'};
 	
 	public MathLibrary() {
 		rand = new Random();

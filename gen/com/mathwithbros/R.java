@@ -63,6 +63,7 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f05000e;
         public static final int app_name=0x7f050000;
+        public static final int awaiting_challengers=0x7f050015;
         public static final int back_to_main=0x7f050011;
         public static final int button0=0x7f050001;
         public static final int button1=0x7f050002;

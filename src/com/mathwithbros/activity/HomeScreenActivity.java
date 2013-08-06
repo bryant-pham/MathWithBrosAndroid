@@ -19,9 +19,9 @@ import android.view.View;
 
 public class HomeScreenActivity extends Activity {
 
-	ListView yourTurnListview;
-	List<GameItem> gameItemList;
-	YourTurnListAdapter yourTurnAdapter;
+	private ListView yourTurnListview;
+	private List<GameItem> gameItemList;
+	private YourTurnListAdapter yourTurnAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

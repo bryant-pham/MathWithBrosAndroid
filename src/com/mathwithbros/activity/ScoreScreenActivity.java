@@ -6,24 +6,26 @@ import com.mathwithbros.databasetable.GameItem;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.view.View;
 import android.widget.TextView;
 
 public class ScoreScreenActivity extends Activity {
 	
-	TextView p1UserName;
-	TextView p2UserName;
-	TextView p1Score;
-	TextView p2Score;
+	private TextView p1UserName;
+	private TextView p2UserName;
+	private TextView p1Score;
+	private TextView p2Score;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_score_screen);
 		
-		TextView p1UserName = ( TextView ) findViewById( R.id.p1UserName );
-		TextView p2UserName = ( TextView ) findViewById( R.id.p2UserName );
-		TextView p1Score    = ( TextView ) findViewById( R.id.p1Score );
-		TextView p2Score    = ( TextView ) findViewById( R.id.p2Score );
+		p1UserName = ( TextView ) findViewById( R.id.p1UserName );
+		p2UserName = ( TextView ) findViewById( R.id.p2UserName );
+		p1Score    = ( TextView ) findViewById( R.id.p1Score );
+		p2Score    = ( TextView ) findViewById( R.id.p2Score );
 		
 		Bundle gameInfo = getIntent().getExtras();
 		GameItem receivedGameItem = gameInfo.getParcelable( "gameItem" );
@@ -34,4 +36,8 @@ public class ScoreScreenActivity extends Activity {
 		p2Score.setText( Integer.toString( receivedGameItem.getP2Score() ) );
 	}
 
+	public void backToHome( View view ) {
+		Intent intent = new Intent( this, HomeScreenActivity.class );
+		startActivity( intent );
+	}
 }

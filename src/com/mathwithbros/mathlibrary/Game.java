@@ -2,7 +2,7 @@ package com.mathwithbros.mathlibrary;
 
 public class Game {
 
-	int score;
+	private int score;
 	
 	public Game() {
 		score = 0;

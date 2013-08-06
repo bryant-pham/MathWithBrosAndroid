@@ -20,8 +20,8 @@ import com.mathwithbros.model.DynamoDBClient;
 
 public class DynamoDBModel {
 	
-	AmazonDynamoDBClient client;
-	DynamoDBMapper mapper;
+	private AmazonDynamoDBClient client;
+	private DynamoDBMapper mapper;
 	
 	private final String regionEndpoint = "dynamodb.us-west-2.amazonaws.com";
 	

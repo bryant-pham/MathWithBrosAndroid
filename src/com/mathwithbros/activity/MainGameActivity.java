@@ -22,15 +22,15 @@ import com.mathwithbros.model.DynamoDBModel;
 
 public class MainGameActivity extends Activity implements OnClickListener {
 
-	TextView answerBox;
-	TextView questionBox;
-	TextView timerBox;
-	TextView scoreBox;
-	Game game;
-	MathLibrary mathLibrary;
-	int timerCount;
-	GameItem receivedGameItem;
-	boolean newGame;
+	private TextView answerBox;
+	private TextView questionBox;
+	private TextView timerBox;
+	private TextView scoreBox;
+	private Game game;
+	private MathLibrary mathLibrary;
+	private int timerCount;
+	private GameItem receivedGameItem;
+	private boolean newGame;
 	
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
