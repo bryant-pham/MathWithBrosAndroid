@@ -1,5 +1,9 @@
 package com.mathwithbros.mathlibrary;
 
+/**
+ * Class used to perform all the game math logic; generating equations, checking answers etc
+ */
+
 import java.util.Random;
 
 public class MathLibrary {

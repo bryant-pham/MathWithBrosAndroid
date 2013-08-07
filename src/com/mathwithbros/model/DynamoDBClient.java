@@ -1,5 +1,9 @@
 package com.mathwithbros.model;
 
+/**
+ * Class used to provide the credentials object required for database operations
+ */
+
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.AWSCredentials;
 

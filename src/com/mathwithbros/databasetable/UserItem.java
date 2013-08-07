@@ -1,5 +1,9 @@
 package com.mathwithbros.databasetable;
 
+/**
+ * Class used by DynamoDB's mapper API to map the schema for the User table
+ */
+
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;

@@ -18,7 +18,6 @@
         <activity
             android:name="com.mathwithbros.activity.MainGameActivity"
             android:label="@string/title_activity_main_game" >
-            
         </activity>
         <activity
             android:name="com.mathwithbros.activity.ScoreScreenActivity"
@@ -29,7 +28,6 @@
             android:label="@string/title_activity_home_screen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -1,5 +1,9 @@
 package com.mathwithbros.listadapter;
 
+/**
+ * List adapter for a custom listview used to display matches pending completion by a particular player
+ */
+
 import java.util.List;
 
 import com.mathwithbros.R;

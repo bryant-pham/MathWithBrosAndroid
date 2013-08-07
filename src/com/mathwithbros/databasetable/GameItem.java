@@ -1,5 +1,9 @@
 package com.mathwithbros.databasetable;
 
+/**
+ * Class used by DynamoDB's mapper API to map the schema for the Game table
+ */
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
