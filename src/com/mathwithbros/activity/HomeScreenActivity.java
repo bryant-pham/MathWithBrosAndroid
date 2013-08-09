@@ -30,7 +30,7 @@ public class HomeScreenActivity extends Activity {
 		yourTurnListview = ( ListView ) findViewById( R.id.your_turn_listview );
 		
 		//Grab data and populate list
-		new loadYourTurnList().execute();
+		new LoadYourTurnList().execute();
 		
 		//Set listener
 		yourTurnListview.setOnItemClickListener( selectGame );
@@ -46,6 +46,10 @@ public class HomeScreenActivity extends Activity {
 		}
 	};
 	
+	public void startNewGameActivity( View view ) {
+		startActivity( new Intent( this, NewGameListActivity.class ) );
+	}
+	
 	private void startGame( GameItem gameItem ) {
 		
 		//Attach GameItem object to bundle/intent and start activity
@@ -55,10 +59,11 @@ public class HomeScreenActivity extends Activity {
 		intent.putExtras( bundle );
 		intent.putExtra( "newGame" , false );
 		startActivity( intent );
+		finish();
 	}
 	
 	//AsyncTask to retrieve GameItem objects from DB and populate list
-	private class loadYourTurnList extends AsyncTask<String, Void, Void> {
+	private class LoadYourTurnList extends AsyncTask<String, Void, Void> {
 		
 		protected Void doInBackground( String... playerName ) {
 			//String userName = ( String ) playerName[ 0 ];
@@ -82,6 +87,15 @@ public class HomeScreenActivity extends Activity {
 			} catch ( Exception e ) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	private class test extends AsyncTask<Void, Void, Void> {
+		
+		protected Void doInBackground( Void... voids ) {
+			DynamoDBModel derp = new DynamoDBModel();
+			derp.getAllPlayers();
+			return null;
 		}
 	}
 }

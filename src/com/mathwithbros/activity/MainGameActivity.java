@@ -206,6 +206,7 @@ public class MainGameActivity extends Activity implements OnClickListener {
 		bundle.putParcelable( "gameItem" , receivedGameItem );
 		intent.putExtras( bundle );
 		startActivity( intent );
+		finish();
 	}
 	
 	private class RecordNewGame extends AsyncTask< GameItem, Void, Void > {

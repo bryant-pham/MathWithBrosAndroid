@@ -6,19 +6,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".HomeScreenActivity"
+    tools:context=".NewGameListActivity"
     android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SELECT A PLAYER TO CHALLENGE!"
+        android:textSize="18sp" />
     
-	    <Button
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:text="@string/start_game"
-	        android:textSize="30sp"
-	        android:onClick="startNewGameActivity" />
-    
-	    <ListView
-	        android:id="@+id/your_turn_listview"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content" />    
+    <ListView
+        android:id="@+id/all_players_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

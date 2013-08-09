@@ -13,6 +13,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
@@ -247,5 +248,10 @@ public class DynamoDBModel {
 			e.printStackTrace();
 		}
 		return gameItems;
+	}
+	
+	public List<UserItem> getAllPlayers() {
+		List<UserItem> list = mapper.scan( UserItem.class, new DynamoDBScanExpression() );
+		return list;
 	}
 }

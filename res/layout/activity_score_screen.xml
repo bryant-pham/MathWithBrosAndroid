@@ -13,34 +13,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:paddingBottom="50dp" />
-    
+        android:textSize="20sp"
+        android:paddingBottom="50dp"
+        android:text="@string/hello_world" />    
     <TextView
         android:id="@+id/p1Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/p1UserName" />
+        android:textSize="20sp"
+        android:layout_below="@id/p1UserName"
+        android:text="@string/hello_world" />
     
     <TextView
         android:id="@+id/p2UserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:paddingBottom="50dp" />
+        android:textSize="20sp"
+        android:paddingBottom="50dp"
+        android:text="@string/hello_world" />
     
     <TextView
         android:id="@+id/p2Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/p2UserName" />
+        android:textSize="20sp"
+        android:layout_below="@id/p2UserName"
+        android:text="@string/hello_world" />
 
       <Button
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_alignParentBottom="true"
           android:text="@string/back_to_main"
+          android:textSize="30sp"
           android:onClick="backToHome" />
 
 </RelativeLayout>
