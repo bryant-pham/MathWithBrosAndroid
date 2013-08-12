@@ -4,6 +4,7 @@ import com.mathwithbros.R;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -77,7 +78,7 @@ public class MainGameActivity extends Activity implements OnClickListener {
 		questionBox.setText( mathLibrary.getEquation() );
 		timerBox.setText( Integer.toString( timerCount ) );
 		
-		setTimer( 5 ); //TODO: CHANGE THIS NUMBER TO CHANGE TIMER
+		setTimer( 15 ); //TODO: CHANGE THIS NUMBER TO CHANGE TIMER
 		startTimer();
 	}
 
@@ -172,9 +173,6 @@ public class MainGameActivity extends Activity implements OnClickListener {
 					
 					//Record game into database
 					recordGameScore();
-					
-					//Start ScoreScreen activity
-					showScoreScreen();
 				}
 			}
 		};
@@ -211,20 +209,57 @@ public class MainGameActivity extends Activity implements OnClickListener {
 	
 	private class RecordNewGame extends AsyncTask< GameItem, Void, Void > {
 		
+		private ProgressDialog pdia;
+
+		@Override
+		protected void onPreExecute(){ 
+			super.onPreExecute();
+	        pdia = new ProgressDialog( MainGameActivity.this );
+	        pdia.setMessage("Submitting Score...");
+	        pdia.show();    
+		}
+		
 		protected Void doInBackground( GameItem... gameItemList ) {
 			DynamoDBModel ddb = new DynamoDBModel();
 			GameItem gameItem = gameItemList[ 0 ];
 			ddb.recordNewGame( gameItem );
 			return null;
 		}
+		
+		protected void onPostExecute( Void x ) {
+			pdia.dismiss();
+			pdia = null;
+			
+			//Start ScoreScreen activity
+			showScoreScreen();
+		}
 	}
 	
 	private class RecordFinishedGame extends AsyncTask< GameItem, Void, Void > {
+		
+		private ProgressDialog pdia;
+
+		@Override
+		protected void onPreExecute(){ 
+			super.onPreExecute();
+	        pdia = new ProgressDialog( MainGameActivity.this );
+	        pdia.setMessage("Submitting Score...");
+	        pdia.show();    
+		}
+		
 		protected Void doInBackground( GameItem... gameItemList ) {
 			DynamoDBModel ddb = new DynamoDBModel();
 			GameItem gameItem = gameItemList[ 0 ];
 			ddb.recordFinishedGame( gameItem );
 			return null;
+		}
+		
+		protected void onPostExecute( Void x ) {
+			pdia.dismiss();
+			pdia = null;
+			
+			//Start ScoreScreen activity
+			showScoreScreen();
 		}
 	}
 }
