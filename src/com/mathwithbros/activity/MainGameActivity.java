@@ -137,10 +137,6 @@ public class MainGameActivity extends Activity implements OnClickListener {
 		if( mathLibrary.checkAnswer( answerBox.getText().toString() ) ) {
 			game.incrementScore();
 			updateScoreDisplay();
-			
-			Log.i( "Correct answer", "Correct answer input - score incremented" );
-			Log.i( "Score", "Score: " + Integer.toString( game.getScore() ) );
-			
 			setNewEquation();
 		}
 	}
@@ -229,8 +225,6 @@ public class MainGameActivity extends Activity implements OnClickListener {
 		protected void onPostExecute( Void x ) {
 			pdia.dismiss();
 			pdia = null;
-			
-			//Start ScoreScreen activity
 			showScoreScreen();
 		}
 	}
@@ -257,8 +251,6 @@ public class MainGameActivity extends Activity implements OnClickListener {
 		protected void onPostExecute( Void x ) {
 			pdia.dismiss();
 			pdia = null;
-			
-			//Start ScoreScreen activity
 			showScoreScreen();
 		}
 	}

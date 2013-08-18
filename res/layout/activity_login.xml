@@ -6,18 +6,29 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".NewGameListActivity"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
 
-    <TextView
-        android:id="@+id/banner"
+    <EditText
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/select_a_player"
-        android:textSize="18sp" />
+        android:hint="@string/username" />
     
-    <ListView
-        android:id="@+id/all_players_listview"
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:inputType="textPassword" />
+    
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_register"
+        android:onClick="submit" />
+    
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

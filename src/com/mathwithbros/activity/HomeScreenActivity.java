@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -100,15 +101,6 @@ public class HomeScreenActivity extends Activity {
 			} catch ( Exception e ) {
 				e.printStackTrace();
 			}
-		}
-	}
-	
-	private class test extends AsyncTask<Void, Void, Void> {
-		
-		protected Void doInBackground( Void... voids ) {
-			DynamoDBModel derp = new DynamoDBModel();
-			derp.getAllPlayers();
-			return null;
 		}
 	}
 }

@@ -24,5 +24,10 @@
     <string name="title_activity_your_turn_list_fragment">YourTurnListFragment</string>
     <string name="awaiting_challengers">AWAITING CHALLENGERS</string>
     <string name="title_activity_new_game_list">NewGameListActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login_register">Login/Register</string>
+    <string name="select_a_player">SELECT A PLAYER TO CHALLENGE</string>
 
 </resources>

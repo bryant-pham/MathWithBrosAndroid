@@ -35,8 +35,7 @@ public class DynamoDBModel {
 			AWSCredentials credentials = new DynamoDBClient().getCredentials();
 			client = new AmazonDynamoDBClient( credentials );
 			client.setEndpoint( regionEndpoint );
-			mapper = new DynamoDBMapper( client );
-			
+			mapper = new DynamoDBMapper( client );		
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		}
@@ -49,6 +48,17 @@ public class DynamoDBModel {
 			userItem.setPassword( password );
 			mapper.save( userItem );
 			Log.i( "Success", "Successfully registered user" );
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void loginUser( String userName, String password ) {
+		try {
+			UserItem userItem = mapper.load( UserItem.class, userName, password );
+			if( userItem == null ) 
+				registerUser( userName, password );
+			Log.i( "Success", "Successfully logged in user" );
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		}

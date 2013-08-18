@@ -11,6 +11,7 @@
         android:targetSdkVersion="17" />
 
     <application
+        android:name="com.mathwithbros.GlobalState"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -35,6 +36,10 @@
         <activity
             android:name="com.mathwithbros.activity.NewGameListActivity"
             android:label="@string/title_activity_new_game_list" >
+        </activity>
+        <activity
+            android:name="com.mathwithbros.activity.LoginActivity"
+            android:label="@string/title_activity_login" >
         </activity>
     </application>
 
