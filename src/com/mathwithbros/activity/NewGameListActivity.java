@@ -2,6 +2,7 @@ package com.mathwithbros.activity;
 
 import java.util.List;
 
+import com.mathwithbros.GlobalState;
 import com.mathwithbros.R;
 import com.mathwithbros.databasetable.GameItem;
 import com.mathwithbros.databasetable.UserItem;
@@ -42,11 +43,12 @@ public class NewGameListActivity extends Activity {
 			//Grab UserItem object from the list item clicked
 			UserItem selectedPlayer = allPlayersAdapter.getItem( position );
 			GameItem gameItem = new GameItem();
-			
-			//TODO: HARDCODED USERNAME CHANGE THIS LATER
-			gameItem.setP1UserName( "Bryant" );
-			
+
+			GlobalState globalVariables = (GlobalState) getApplicationContext();
+			String P1UserName = globalVariables.getUSERNAME();
+			gameItem.setP1UserName( P1UserName );
 			gameItem.setP2UserName( selectedPlayer.getUserName() );
+			
 			startGame( gameItem );
 		}
 	};

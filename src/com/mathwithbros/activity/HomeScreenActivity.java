@@ -2,6 +2,7 @@ package com.mathwithbros.activity;
 
 import java.util.List;
 
+import com.mathwithbros.GlobalState;
 import com.mathwithbros.R;
 import com.mathwithbros.databasetable.GameItem;
 import com.mathwithbros.listadapter.YourTurnListAdapter;
@@ -43,8 +44,7 @@ public class HomeScreenActivity extends Activity {
 		@Override
 		public void onItemClick( AdapterView<?> parent, View view, int position, long id ) {
 			//Grab GameItem object from the list item clicked
-			GameItem gameItem = yourTurnAdapter.getItem( position );
-			
+			GameItem gameItem = yourTurnAdapter.getItem( position );		
 			startGame( gameItem );
 		}
 	};
@@ -67,7 +67,7 @@ public class HomeScreenActivity extends Activity {
 	}
 	
 	//AsyncTask to retrieve GameItem objects from DB and populate list
-	private class LoadYourTurnList extends AsyncTask<String, Void, Void> {
+	private class LoadYourTurnList extends AsyncTask<Void, Void, Void> {
 		
 		private ProgressDialog pdia;
 
@@ -79,13 +79,9 @@ public class HomeScreenActivity extends Activity {
 	        pdia.show();    
 		}
 		
-		protected Void doInBackground( String... playerName ) {
-			//String userName = ( String ) playerName[ 0 ];
-			
-			/**
-			 *  TODO: DA HARDCODED USERNAME REPLACE THIS LATER
-			 */
-			String userName = "Bryant";
+		protected Void doInBackground( Void...voids ) {
+			GlobalState globalVariables = (GlobalState) getApplicationContext();
+			String userName = globalVariables.getUSERNAME();
 			
 			//Grab list data
 			GameDBModel derp = new GameDBModel();
