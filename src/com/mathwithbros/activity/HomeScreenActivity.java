@@ -6,6 +6,7 @@ import com.mathwithbros.R;
 import com.mathwithbros.databasetable.GameItem;
 import com.mathwithbros.listadapter.YourTurnListAdapter;
 import com.mathwithbros.model.DynamoDBModel;
+import com.mathwithbros.model.GameDBModel;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -50,6 +51,7 @@ public class HomeScreenActivity extends Activity {
 	
 	public void startNewGameActivity( View view ) {
 		startActivity( new Intent( this, NewGameListActivity.class ) );
+		finish();
 	}
 	
 	private void startGame( GameItem gameItem ) {
@@ -86,7 +88,7 @@ public class HomeScreenActivity extends Activity {
 			String userName = "Bryant";
 			
 			//Grab list data
-			DynamoDBModel derp = new DynamoDBModel();
+			GameDBModel derp = new GameDBModel();
 			gameItemList = derp.getYourTurnListData( userName );
 			return null;
 		}

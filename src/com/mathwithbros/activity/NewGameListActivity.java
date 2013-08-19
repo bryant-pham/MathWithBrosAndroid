@@ -7,6 +7,7 @@ import com.mathwithbros.databasetable.GameItem;
 import com.mathwithbros.databasetable.UserItem;
 import com.mathwithbros.listadapter.GetAllPlayersListAdapter;
 import com.mathwithbros.model.DynamoDBModel;
+import com.mathwithbros.model.GameDBModel;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -65,7 +66,7 @@ public class NewGameListActivity extends Activity {
 	private class LoadPlayerList extends AsyncTask<Void, Void, Void> {
 		
 		protected Void doInBackground( Void... voids ) {
-			DynamoDBModel derp = new DynamoDBModel();
+			GameDBModel derp = new GameDBModel();
 			playerList = derp.getAllPlayers();
 			return null;
 		}

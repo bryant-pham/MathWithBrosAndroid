@@ -1,6 +1,6 @@
 package com.mathwithbros;
 
-import com.mathwithbros.activity.LoginActivity;
+import com.mathwithbros.activity.HomeScreenActivity;
 
 import android.app.Application;
 import android.content.Intent;
@@ -19,9 +19,8 @@ public class GlobalState extends Application {
         getSharedPreferences(USER_FILE, 0).edit().clear().commit(); //TODO: REMOVE LATER - USED TO CLEAR SHARED PREFS FOR TESTING
 		pref = getSharedPreferences( USER_FILE, MODE_PRIVATE );
 	    GLOBAL_USERNAME = pref.getString( USERNAME_KEY, null );
-	    if( GLOBAL_USERNAME == null ) {
-	    	redirectToLogin();
-	    }
+	    if( GLOBAL_USERNAME != null ) 
+	    	redirectToHome();
 	}
 	
 	public String getUSERNAME() {
@@ -36,9 +35,10 @@ public class GlobalState extends Application {
 		GLOBAL_USERNAME = pref.getString( USERNAME_KEY, null );
 	}
 	
-	private void redirectToLogin() {
-		Intent intent = new Intent( this, LoginActivity.class );
+	private void redirectToHome() {
+		Intent intent = new Intent( this, HomeScreenActivity.class );
 		intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+		intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
 		startActivity( intent );
 	}
 }

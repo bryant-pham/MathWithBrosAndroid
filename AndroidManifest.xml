@@ -18,7 +18,8 @@
         android:theme="@android:style/Theme.Light.NoTitleBar" >
         <activity
             android:name="com.mathwithbros.activity.MainGameActivity"
-            android:label="@string/title_activity_main_game" >
+            android:label="@string/title_activity_main_game"
+            android:noHistory="true" >
         </activity>
         <activity
             android:name="com.mathwithbros.activity.ScoreScreenActivity"
@@ -26,12 +27,7 @@
         </activity>
         <activity
             android:name="com.mathwithbros.activity.HomeScreenActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="@string/title_activity_home_screen" >
         </activity>
         <activity
             android:name="com.mathwithbros.activity.NewGameListActivity"
@@ -39,7 +35,12 @@
         </activity>
         <activity
             android:name="com.mathwithbros.activity.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/app_name"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

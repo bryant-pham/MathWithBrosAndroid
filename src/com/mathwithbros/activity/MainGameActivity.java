@@ -20,6 +20,7 @@ import com.mathwithbros.mathlibrary.MathLibrary;
 import com.mathwithbros.mathlibrary.Game;
 
 import com.mathwithbros.model.DynamoDBModel;
+import com.mathwithbros.model.GameDBModel;
 
 public class MainGameActivity extends Activity implements OnClickListener {
 
@@ -200,7 +201,6 @@ public class MainGameActivity extends Activity implements OnClickListener {
 		bundle.putParcelable( "gameItem" , receivedGameItem );
 		intent.putExtras( bundle );
 		startActivity( intent );
-		finish();
 	}
 	
 	private class RecordNewGame extends AsyncTask< GameItem, Void, Void > {
@@ -216,7 +216,7 @@ public class MainGameActivity extends Activity implements OnClickListener {
 		}
 		
 		protected Void doInBackground( GameItem... gameItemList ) {
-			DynamoDBModel ddb = new DynamoDBModel();
+			GameDBModel ddb = new GameDBModel();
 			GameItem gameItem = gameItemList[ 0 ];
 			ddb.recordNewGame( gameItem );
 			return null;
@@ -242,7 +242,7 @@ public class MainGameActivity extends Activity implements OnClickListener {
 		}
 		
 		protected Void doInBackground( GameItem... gameItemList ) {
-			DynamoDBModel ddb = new DynamoDBModel();
+			GameDBModel ddb = new GameDBModel();
 			GameItem gameItem = gameItemList[ 0 ];
 			ddb.recordFinishedGame( gameItem );
 			return null;
