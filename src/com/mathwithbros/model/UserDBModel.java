@@ -31,12 +31,7 @@ public class UserDBModel extends DynamoDBModel {
 	public boolean loginUser( String userName, String password ) {
 		try {
 			if( checkUserExists( userName ) ) {
-				CredentialsItem credentialsItem = new CredentialsItem();
-				credentialsItem.setUserName( userName );
-				credentialsItem.setPassword( password );
-				mapper.load( credentialsItem );
-				Log.i( "Success", "Successfully logged in user" );
-				return true;
+				return ( mapper.load( CredentialsItem.class, userName, password ) != null ) ? true : false; 
 			}
 		} catch ( Exception e ) {
 			e.printStackTrace();
@@ -45,7 +40,6 @@ public class UserDBModel extends DynamoDBModel {
 	}
 	
 	private boolean checkUserExists( String userName ) {
-		UserItem userItem = mapper.load( UserItem.class, userName );
-		return ( userItem != null ) ? true : false;
+		return ( mapper.load( UserItem.class, userName ) != null ) ? true : false;
 	}
 }

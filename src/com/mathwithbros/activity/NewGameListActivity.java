@@ -33,7 +33,6 @@ public class NewGameListActivity extends Activity {
 		playerListView = ( ListView ) findViewById( R.id.all_players_listview );
 		new LoadPlayerList().execute();
 		
-		//Set listener
 		playerListView.setOnItemClickListener( selectPlayer );
 	}
 	
