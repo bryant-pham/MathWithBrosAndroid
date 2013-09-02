@@ -5,15 +5,14 @@ import java.util.List;
 import com.mathwithbros.GlobalState;
 import com.mathwithbros.R;
 import com.mathwithbros.databasetable.GameItem;
+import com.mathwithbros.listadapter.MatchHistoryListAdapter;
 import com.mathwithbros.listadapter.YourTurnListAdapter;
-import com.mathwithbros.model.DynamoDBModel;
 import com.mathwithbros.model.GameDBModel;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -24,17 +23,20 @@ import android.view.View;
 public class HomeScreenActivity extends Activity {
 
 	private ListView yourTurnListview;
-	private List<GameItem> gameItemList;
+	private ListView matchHistoryListView;
 	private YourTurnListAdapter yourTurnAdapter;
+	private MatchHistoryListAdapter matchHistoryAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_screen);
 		yourTurnListview = ( ListView ) findViewById( R.id.your_turn_listview );
+		matchHistoryListView = ( ListView ) findViewById( R.id.match_history_listview );
 		
 		//Grab data and populate list
 		new LoadYourTurnList().execute();
+		//new LoadMatchHistoryList().execute();
 		
 		//Set listener
 		yourTurnListview.setOnItemClickListener( selectGame );
@@ -62,14 +64,17 @@ public class HomeScreenActivity extends Activity {
 		bundle.putParcelable( "gameItem", gameItem );
 		intent.putExtras( bundle );
 		intent.putExtra( "newGame" , false );
+		intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
 		startActivity( intent );
-		finish();
 	}
 	
 	//AsyncTask to retrieve GameItem objects from DB and populate list
 	private class LoadYourTurnList extends AsyncTask<Void, Void, Void> {
 		
 		private ProgressDialog pdia;
+		private List<GameItem> gameItemList;
+		private List<GameItem> historyGameItemList;
+		String USER_NAME = ( ( GlobalState ) getApplicationContext() ).getUSERNAME();
 
 		@Override
 		protected void onPreExecute(){ 
@@ -80,12 +85,10 @@ public class HomeScreenActivity extends Activity {
 		}
 		
 		protected Void doInBackground( Void...voids ) {
-			GlobalState globalVariables = (GlobalState) getApplicationContext();
-			String userName = globalVariables.getUSERNAME();
-			
 			//Grab list data
 			GameDBModel derp = new GameDBModel();
-			gameItemList = derp.getYourTurnListData( userName );
+			gameItemList = derp.getYourTurnListData( USER_NAME );
+			historyGameItemList = derp.getMatchHistoryListData( USER_NAME );
 			return null;
 		}
 		
@@ -94,6 +97,8 @@ public class HomeScreenActivity extends Activity {
 				//Populate list with data
 				yourTurnAdapter = new YourTurnListAdapter( HomeScreenActivity.this, R.layout.activity_your_turn_list_fragment, gameItemList );		
 				yourTurnListview.setAdapter( yourTurnAdapter );
+				matchHistoryAdapter = new MatchHistoryListAdapter( HomeScreenActivity.this, R.layout.activity_match_history_list, historyGameItemList, USER_NAME );		
+				matchHistoryListView.setAdapter( matchHistoryAdapter );
 				pdia.dismiss();
 				pdia = null;
 			} catch ( Exception e ) {

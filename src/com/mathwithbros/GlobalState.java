@@ -16,7 +16,7 @@ public class GlobalState extends Application {
 	@Override
     public void onCreate() {
         super.onCreate();
-        getSharedPreferences(USER_FILE, 0).edit().clear().commit(); //TODO: REMOVE LATER - USED TO CLEAR SHARED PREFS FOR TESTING
+        //getSharedPreferences(USER_FILE, 0).edit().clear().commit(); //TODO: REMOVE LATER - USED TO CLEAR SHARED PREFS FOR TESTING
 		pref = getSharedPreferences( USER_FILE, MODE_PRIVATE );
 	    GLOBAL_USERNAME = pref.getString( USERNAME_KEY, null );
 	    if( GLOBAL_USERNAME != null ) 

@@ -33,11 +33,11 @@ public class LoginActivity extends Activity {
 	}
 	
 	public void login( View v ) {
-		new Login().execute( userNameView.getText().toString(), passwordView.getText().toString() );
+		new Login().execute( userNameView.getText().toString().trim(), passwordView.getText().toString() );
 	}
 	
 	public void register( View v ) {
-		new Register().execute( userNameView.getText().toString(), passwordView.getText().toString() );
+		new Register().execute( userNameView.getText().toString().trim(), passwordView.getText().toString() );
 	}
 	
 	public void switchView( View v ) {

@@ -15,10 +15,27 @@
 	        android:text="@string/start_game"
 	        android:textSize="30sp"
 	        android:onClick="startNewGameActivity" />
-    
+    	
+	    <TextView 
+	        android:id="@+id/your_turn_banner"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Your Turn" />
+	    
 	    <ListView
 	        android:id="@+id/your_turn_listview"
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content" />    
+	        android:layout_height="wrap_content" />  
+	        
+	    <TextView 
+	        android:id="@+id/match_history_banner"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="History" />
+	    
+	    <ListView
+	        android:id="@+id/match_history_listview"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
 
 </LinearLayout>

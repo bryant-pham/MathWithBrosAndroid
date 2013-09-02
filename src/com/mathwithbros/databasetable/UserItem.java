@@ -15,4 +15,9 @@ public class UserItem {
 	@DynamoDBHashKey( attributeName = "userName" )
 	public String getUserName() { return userName; }
 	public void setUserName( String userName ) { this.userName = userName; }
+	
+	@Override
+	public boolean equals( Object userItem ) {
+		return ( ( UserItem ) userItem).getUserName().equals( this.userName );
+	}
 }

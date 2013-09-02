@@ -6,7 +6,7 @@ import com.mathwithbros.GlobalState;
 import com.mathwithbros.R;
 import com.mathwithbros.databasetable.GameItem;
 import com.mathwithbros.databasetable.UserItem;
-import com.mathwithbros.listadapter.GetAllPlayersListAdapter;
+import com.mathwithbros.listadapter.AllPlayersListAdapter;
 import com.mathwithbros.model.DynamoDBModel;
 import com.mathwithbros.model.GameDBModel;
 
@@ -22,8 +22,7 @@ import android.content.Intent;
 public class NewGameListActivity extends Activity {
 
 	private ListView playerListView;
-	private GetAllPlayersListAdapter allPlayersAdapter;
-	private List<UserItem> playerList;
+	private AllPlayersListAdapter allPlayersAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,14 +65,20 @@ public class NewGameListActivity extends Activity {
 
 	private class LoadPlayerList extends AsyncTask<Void, Void, Void> {
 		
+		private List<UserItem> playerList;
+		
 		protected Void doInBackground( Void... voids ) {
+			try{
+			String USER_NAME = ( ( GlobalState ) getApplicationContext() ).getUSERNAME();
 			GameDBModel derp = new GameDBModel();
-			playerList = derp.getAllPlayers();
+			playerList = derp.getAllPlayers( USER_NAME );
+			
+			} catch (Exception e) { e.printStackTrace(); }
 			return null;
 		}
 		
 		public void onPostExecute( Void x ) {
-			allPlayersAdapter = new GetAllPlayersListAdapter( NewGameListActivity.this, R.layout.activity_your_turn_list_fragment, playerList );
+			allPlayersAdapter = new AllPlayersListAdapter( NewGameListActivity.this, R.layout.activity_your_turn_list_fragment, playerList );
 			playerListView.setAdapter( allPlayersAdapter );
 		}
 	}

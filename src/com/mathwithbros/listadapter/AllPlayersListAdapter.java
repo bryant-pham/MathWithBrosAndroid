@@ -10,18 +10,17 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.mathwithbros.databasetable.UserItem;
 
-public class GetAllPlayersListAdapter extends ArrayAdapter<UserItem> {
+public class AllPlayersListAdapter extends ArrayAdapter<UserItem> {
 
 	private List<UserItem> listData;
 	private Context context;
 	private int textViewResourceId;
 	
-	public GetAllPlayersListAdapter( Context context, int textViewResourceId, List<UserItem> listData ) {
+	public AllPlayersListAdapter( Context context, int textViewResourceId, List<UserItem> listData ) {
 		super( context, textViewResourceId, listData );
 		this.listData = listData;
 		this.context = context;

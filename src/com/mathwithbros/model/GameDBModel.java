@@ -212,8 +212,15 @@ public class GameDBModel extends DynamoDBModel {
 		return gameItems;
 	}
 	
-	public List<UserItem> getAllPlayers() {
-		List<UserItem> list = mapper.scan( UserItem.class, new DynamoDBScanExpression() );
+	public List<UserItem> getAllPlayers( String userName ) {
+		Condition condition = new Condition();
+		condition.withComparisonOperator( ComparisonOperator.NE )
+			.withAttributeValueList( new AttributeValue().withS( userName ) );
+		
+		DynamoDBScanExpression filter = new DynamoDBScanExpression();
+		filter.addFilterCondition( "userName" , condition );
+		
+		List<UserItem> list = mapper.scan( UserItem.class, filter );
 		return list;
 	}
 	
