@@ -38,6 +38,7 @@ public class ScoreScreenActivity extends Activity {
 
 	public void backToHome( View view ) {
 		Intent intent = new Intent( this, HomeScreenActivity.class );
+		intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
 		startActivity( intent );
 	}
 }

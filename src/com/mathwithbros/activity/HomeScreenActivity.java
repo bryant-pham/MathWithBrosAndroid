@@ -36,9 +36,8 @@ public class HomeScreenActivity extends Activity {
 		
 		//Grab data and populate list
 		new LoadYourTurnList().execute();
-		//new LoadMatchHistoryList().execute();
 		
-		//Set listener
+		//Set listeners
 		yourTurnListview.setOnItemClickListener( selectGame );
 	}
 	
@@ -53,7 +52,6 @@ public class HomeScreenActivity extends Activity {
 	
 	public void startNewGameActivity( View view ) {
 		startActivity( new Intent( this, NewGameListActivity.class ) );
-		finish();
 	}
 	
 	private void startGame( GameItem gameItem ) {

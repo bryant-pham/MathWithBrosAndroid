@@ -59,8 +59,8 @@ public class NewGameListActivity extends Activity {
 		bundle.putParcelable( "gameItem", gameItem );
 		intent.putExtras( bundle );
 		intent.putExtra( "newGame" , true );
+		intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
 		startActivity( intent );
-		finish();
 	}
 
 	private class LoadPlayerList extends AsyncTask<Void, Void, Void> {
