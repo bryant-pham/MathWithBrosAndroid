@@ -2,12 +2,12 @@ package com.mathwithbros.activity;
 
 import java.util.List;
 
-import com.mathwithbros.GlobalState;
 import com.mathwithbros.R;
 import com.mathwithbros.databasetable.GameItem;
 import com.mathwithbros.listadapter.MatchHistoryListAdapter;
 import com.mathwithbros.listadapter.YourTurnListAdapter;
 import com.mathwithbros.model.GameDBModel;
+import com.mathwithbros.usermanager.GlobalVariables;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -72,7 +72,7 @@ public class HomeScreenActivity extends Activity {
 		private ProgressDialog pdia;
 		private List<GameItem> gameItemList;
 		private List<GameItem> historyGameItemList;
-		String USER_NAME = ( ( GlobalState ) getApplicationContext() ).getUSERNAME();
+		String USER_NAME = ( ( GlobalVariables ) getApplicationContext() ).getGlobalUserName();
 
 		@Override
 		protected void onPreExecute(){ 

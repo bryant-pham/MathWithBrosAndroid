@@ -1,9 +1,9 @@
 package com.mathwithbros.activity;
 
-import com.mathwithbros.GlobalState;
 import com.mathwithbros.R;
 
 import com.mathwithbros.model.UserDBModel;
+import com.mathwithbros.usermanager.GlobalVariables;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -68,8 +68,8 @@ public class LoginActivity extends Activity {
 		
 		public void onPostExecute( Void x ) {
 			if( successfulLogin ) {
-				GlobalState app = (GlobalState) getApplicationContext();
-				app.saveUSERNAME( userName );
+				GlobalVariables app = (GlobalVariables) getApplicationContext();
+				app.saveGlobalUserName( userName );
 				redirectHome();
 			} else {
 				errorMessage.setText( "Incorrect Password" );
@@ -97,8 +97,8 @@ public class LoginActivity extends Activity {
 		
 		public void onPostExecute( Void x ) {
 			if( successfulRegister ) {
-				GlobalState app = (GlobalState) getApplicationContext();
-				app.saveUSERNAME( userName );
+				GlobalVariables app = ( GlobalVariables ) getApplicationContext();
+				app.saveGlobalUserName( userName );
 				redirectHome();
 			} else {
 				errorMessage.setText( "Username already taken" );

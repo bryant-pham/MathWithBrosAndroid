@@ -2,13 +2,13 @@ package com.mathwithbros.activity;
 
 import java.util.List;
 
-import com.mathwithbros.GlobalState;
 import com.mathwithbros.R;
 import com.mathwithbros.databasetable.GameItem;
 import com.mathwithbros.databasetable.UserItem;
 import com.mathwithbros.listadapter.AllPlayersListAdapter;
 import com.mathwithbros.model.DynamoDBModel;
 import com.mathwithbros.model.GameDBModel;
+import com.mathwithbros.usermanager.GlobalVariables;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -42,8 +42,8 @@ public class NewGameListActivity extends Activity {
 			UserItem selectedPlayer = allPlayersAdapter.getItem( position );
 			GameItem gameItem = new GameItem();
 
-			GlobalState globalVariables = (GlobalState) getApplicationContext();
-			String P1UserName = globalVariables.getUSERNAME();
+			GlobalVariables globalVariables = (GlobalVariables) getApplicationContext();
+			String P1UserName = globalVariables.getGlobalUserName();
 			gameItem.setP1UserName( P1UserName );
 			gameItem.setP2UserName( selectedPlayer.getUserName() );
 			
@@ -69,7 +69,7 @@ public class NewGameListActivity extends Activity {
 		
 		protected Void doInBackground( Void... voids ) {
 			try{
-			String USER_NAME = ( ( GlobalState ) getApplicationContext() ).getUSERNAME();
+			String USER_NAME = ( ( GlobalVariables ) getApplicationContext() ).getGlobalUserName();
 			GameDBModel derp = new GameDBModel();
 			playerList = derp.getAllPlayers( USER_NAME );
 			
