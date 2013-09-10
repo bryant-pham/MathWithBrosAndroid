@@ -14,7 +14,7 @@ public class SessionManager {
 	public SessionManager( Context context ) {
 		pref   = context.getSharedPreferences( USER_FILE, 0 );
 		editor = pref.edit();
-		editor.clear().commit();
+		//editor.clear().commit(); //TODO: CLEARS USER_NAME AND FORCES RELOGIN
 	}
 	
 	public boolean checkLoggedIn() {

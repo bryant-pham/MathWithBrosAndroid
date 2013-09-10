@@ -8,6 +8,7 @@ import com.mathwithbros.listadapter.MatchHistoryListAdapter;
 import com.mathwithbros.listadapter.YourTurnListAdapter;
 import com.mathwithbros.model.GameDBModel;
 import com.mathwithbros.usermanager.GlobalVariables;
+import com.mathwithbros.usermanager.SessionManager;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -27,18 +28,33 @@ public class HomeScreenActivity extends Activity {
 	private YourTurnListAdapter yourTurnAdapter;
 	private MatchHistoryListAdapter matchHistoryAdapter;
 	
+	private SessionManager session;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_home_screen);
-		yourTurnListview = ( ListView ) findViewById( R.id.your_turn_listview );
-		matchHistoryListView = ( ListView ) findViewById( R.id.match_history_listview );
 		
-		//Grab data and populate list
-		new LoadYourTurnList().execute();
-		
-		//Set listeners
-		yourTurnListview.setOnItemClickListener( selectGame );
+		session = new SessionManager( getApplicationContext() );
+		if( !session.checkLoggedIn() )
+			redirectToLogin();
+		else {
+			setContentView(R.layout.activity_home_screen);
+			yourTurnListview = ( ListView ) findViewById( R.id.your_turn_listview );
+			matchHistoryListView = ( ListView ) findViewById( R.id.match_history_listview );
+			
+			//Grab data and populate list
+			new LoadYourTurnList().execute();
+			
+			//Set listeners
+			yourTurnListview.setOnItemClickListener( selectGame );
+			matchHistoryListView.setOnItemClickListener( selectGameHistory );
+		}
+	}
+	
+	private void redirectToLogin() {
+		Intent intent = new Intent( this, LoginActivity.class );
+		intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+		startActivity( intent );
 	}
 	
 	private OnItemClickListener selectGame = new OnItemClickListener() {
@@ -47,6 +63,15 @@ public class HomeScreenActivity extends Activity {
 			//Grab GameItem object from the list item clicked
 			GameItem gameItem = yourTurnAdapter.getItem( position );		
 			startGame( gameItem );
+		}
+	};
+	
+	private OnItemClickListener selectGameHistory = new OnItemClickListener() {
+		@Override
+		public void onItemClick( AdapterView<?> parent, View view, int position, long id ) {
+			//Grab GameItem object from the list item clicked
+			GameItem gameItem = matchHistoryAdapter.getItem( position );		
+			showScoreScreen( gameItem );
 		}
 	};
 	
@@ -63,6 +88,14 @@ public class HomeScreenActivity extends Activity {
 		intent.putExtras( bundle );
 		intent.putExtra( "newGame" , false );
 		intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+		startActivity( intent );
+	}
+	
+	private void showScoreScreen( GameItem gameItem ) {
+		Intent intent = new Intent( this, ScoreScreenActivity.class );
+		Bundle bundle = new Bundle();
+		bundle.putParcelable( "gameItem" , gameItem );
+		intent.putExtras( bundle );
 		startActivity( intent );
 	}
 	
