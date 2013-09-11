@@ -41,6 +41,8 @@ public class HomeScreenActivity extends Activity {
 			setContentView(R.layout.activity_home_screen);
 			yourTurnListview = ( ListView ) findViewById( R.id.your_turn_listview );
 			matchHistoryListView = ( ListView ) findViewById( R.id.match_history_listview );
+			yourTurnListview.setEmptyView( findViewById( R.id.no_challengers_view ) );
+			matchHistoryListView.setEmptyView( findViewById( R.id.no_games_view ) );
 			
 			//Grab data and populate list
 			new LoadYourTurnList().execute();
